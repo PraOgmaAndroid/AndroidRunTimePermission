@@ -5,18 +5,16 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.ogmaconceptions.androidruntimepermission.databinding.ActivityBiometricPermissionBinding
 import android.os.Build
+import android.os.Bundle
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.app.ActivityCompat
-
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
-
+import com.ogmaconceptions.androidruntimepermission.databinding.ActivityBiometricPermissionBinding
 import java.util.concurrent.Executor
 
 
@@ -140,6 +138,7 @@ class BiometricPermission : AppCompatActivity() {
             ).setAction("Dismiss") {}
                 .show()
             return false
+
         }
         return if (packageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
             true
