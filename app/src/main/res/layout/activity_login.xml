@@ -32,6 +32,45 @@
         android:padding="10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/btgLanguage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEnglish"
+                style="@style/Widget.App.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="@dimen/buttonWidth_2"
+                android:text="English"
+                android:textColor="@color/selector_button_text_color_2"
+                android:textSize="@dimen/sp_16"
+                app:backgroundTint="@color/selector_button_background_2"
+                app:rippleColor="@color/selector_button_ripple_2"
+                app:strokeColor="@color/selector_button_stroke_2"
+                tools:ignore="HardcodedText" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSpanish"
+                style="@style/Widget.App.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/gilroy_light"
+                android:minWidth="@dimen/buttonWidth_2"
+                android:text="Spanish"
+                android:textColor="@color/selector_button_text_color_2"
+                android:textSize="@dimen/sp_16"
+                app:backgroundTint="@color/selector_button_background_2"
+                app:rippleColor="@color/selector_button_ripple_2"
+                app:strokeColor="@color/selector_button_stroke_2"
+                tools:ignore="HardcodedText" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout"
             android:layout_width="match_parent"

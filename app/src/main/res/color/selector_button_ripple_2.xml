@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:alpha="0.8" android:color="@color/buttonBackgroundColor_3" android:state_checked="false" android:state_pressed="true" />
+    <item android:alpha="0.8" android:color="@color/buttonBackgroundColor_3" android:state_checked="false" android:state_hovered="true" />
+    <item android:alpha="0.8" android:color="@color/buttonBackgroundColor_4" android:state_checked="true" android:state_pressed="true" />
+    <item android:alpha="0.8" android:color="@color/buttonBackgroundColor_4" android:state_checked="true" android:state_hovered="true" />
+</selector>
