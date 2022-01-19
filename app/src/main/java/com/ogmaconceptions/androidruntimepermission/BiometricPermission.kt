@@ -66,7 +66,6 @@ class BiometricPermission : AppCompatActivity() {
                 override fun onAuthenticationSucceeded(
                     result: BiometricPrompt.AuthenticationResult) {
                     super.onAuthenticationSucceeded(result)
-                    biometricBinding.materialSwitch.isChecked = true
                     val editor = sharedPref.edit()
                     editor.putInt(PREF_NAME,1)
                     editor.apply()
@@ -77,17 +76,6 @@ class BiometricPermission : AppCompatActivity() {
                     ).show()
                 }
 
-                override fun onAuthenticationFailed() {
-                    super.onAuthenticationFailed()
-                    if (getSharedValue == 0) {
-                        biometricBinding.materialSwitch.isChecked = false
-                    }
-                    Snackbar.make(
-                        biometricBinding.constraintLayout,
-                        "Authentication failed",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                }
             })
 
 
@@ -98,20 +86,32 @@ class BiometricPermission : AppCompatActivity() {
 
 
         biometricBinding.topAppBar.setNavigationOnClickListener {
-            Intent(this,MainActivity::class.java).also {
+            Intent(this, MainActivity::class.java).also {
                 startActivity(it)
             }
         }
 
-        biometricBinding.materialSwitch.setOnCheckedChangeListener { compoundButton, b ->
-            if(getSharedValue == 1){
-                biometricBinding.materialSwitch.isChecked = false
+        biometricBinding.materialSwitch.setOnClickListener {
+            val getSharedValue2 = sharedPref.getInt(PREF_NAME, 0)
+            if (getSharedValue2 == 1) {
                 val editor = sharedPref.edit()
                 editor.clear()
                 editor.apply()
+                finish()
+                overridePendingTransition(0, 0)
+                startActivity(intent)
+                overridePendingTransition(0, 0)
             } else {
-                Log.e(TAG, "CHECKCHANGE $getSharedValue")
+                Log.e(TAG, "$getSharedValue2")
                 biometricPrompt.authenticate(promptInfo)
+            }
+
+        }
+
+        biometricBinding.materialSwitch.setOnCheckedChangeListener { compoundButton, b ->
+            Log.e(TAG, "$b")
+            if (b) {
+                biometricBinding.materialSwitch.isChecked = true
             }
         }
 
