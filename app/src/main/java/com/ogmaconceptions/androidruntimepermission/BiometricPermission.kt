@@ -15,7 +15,6 @@ import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricPrompt
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.ogmaconceptions.androidruntimepermission.databinding.ActivityBiometricPermissionBinding
 import java.util.concurrent.Executor
@@ -41,10 +40,7 @@ class BiometricPermission : AppCompatActivity() {
         biometricBinding = ActivityBiometricPermissionBinding.inflate(layoutInflater)
         setContentView(biometricBinding.root)
 
-        // To build biometric prompt at the time when app is opened
-
         sharedPref = this.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE)
-        val getSharedValue = sharedPref.getInt(PREF_NAME,0)
 
         checkBiometricSupport()
 
@@ -54,12 +50,8 @@ class BiometricPermission : AppCompatActivity() {
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int,
                                                    errString: CharSequence) {
-                    Log.e(TAG, "$getSharedValue")
-                    if (getSharedValue == 1) {
-                        showAlertDialog()
-                    } else {
-                        biometricBinding.materialSwitch.isChecked = false
-                    }
+
+                    biometricBinding.materialSwitch.isChecked = false
 
                 }
 
@@ -67,7 +59,7 @@ class BiometricPermission : AppCompatActivity() {
                     result: BiometricPrompt.AuthenticationResult) {
                     super.onAuthenticationSucceeded(result)
                     val editor = sharedPref.edit()
-                    editor.putInt(PREF_NAME,1)
+                    editor.putBoolean(PREF_NAME, true)
                     editor.apply()
                     Snackbar.make(
                         biometricBinding.constraintLayout,
@@ -78,58 +70,30 @@ class BiometricPermission : AppCompatActivity() {
 
             })
 
-
-        if(getSharedValue == 1){
+        //Log.e(TAG,"CURRENTSHAREDPREFERENCEVALUE ${sharedPref.getBoolean(PREF_NAME,false)}")
+        if (sharedPref.getBoolean(PREF_NAME, false)) {
             biometricBinding.materialSwitch.isChecked = true
-            biometricPrompt.authenticate(promptInfo)
         }
 
 
         biometricBinding.topAppBar.setNavigationOnClickListener {
-            Intent(this, MainActivity::class.java).also {
-                startActivity(it)
-            }
-        }
-
-        biometricBinding.materialSwitch.setOnClickListener {
-            val getSharedValue2 = sharedPref.getInt(PREF_NAME, 0)
-            if (getSharedValue2 == 1) {
-                val editor = sharedPref.edit()
-                editor.clear()
-                editor.apply()
-                finish()
-                overridePendingTransition(0, 0)
+            Intent(this, MainActivity::class.java).also { intent ->
                 startActivity(intent)
-                overridePendingTransition(0, 0)
-            } else {
-                Log.e(TAG, "$getSharedValue2")
-                biometricPrompt.authenticate(promptInfo)
             }
-
         }
 
         biometricBinding.materialSwitch.setOnCheckedChangeListener { compoundButton, b ->
-            Log.e(TAG, "$b")
+            Log.e(TAG, "CHECKCHANGE $b")
             if (b) {
                 biometricBinding.materialSwitch.isChecked = true
+                biometricPrompt.authenticate(promptInfo)
+            } else {
+                val editor = sharedPref.edit()
+                editor.clear()
+                editor.apply()
             }
         }
 
-
-    }
-
-    private fun showAlertDialog() {
-        MaterialAlertDialogBuilder(this)
-            .setTitle(resources.getString(R.string.titleUnlock))
-            .setMessage(resources.getString(R.string.messageUnlock))
-            .setNeutralButton(resources.getString(R.string.cancel)) { dialog, which ->
-                finish()
-            }
-
-            .setPositiveButton(resources.getString(R.string.unlock)) { dialog, which ->
-                biometricPrompt.authenticate(promptInfo)
-                dialog.dismiss()
-            }.setCancelable(false).show()
     }
 
 
