@@ -41,16 +41,30 @@ class BiometricPermission : AppCompatActivity() {
         biometricBinding = ActivityBiometricPermissionBinding.inflate(layoutInflater)
         setContentView(biometricBinding.root)
 
-        // To build biometric prompt at the time when app is opened
 
-        sharedPref = this.getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE)
-        val getSharedValue = sharedPref.getInt(PREF_NAME,0)
+        biometricBinding.topAppBar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.forward -> {
+                    Intent(this, LoginActivity::class.java).also {
+                        startActivity(it)
+                    }
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
+
+        sharedPref = this.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val getSharedValue = sharedPref.getInt(PREF_NAME, 0)
 
         checkBiometricSupport()
 
         executor = ContextCompat.getMainExecutor(this)
 
-        biometricPrompt = BiometricPrompt(this, executor,
+        biometricPrompt = BiometricPrompt(
+            this, executor,
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int,
                                                    errString: CharSequence) {
