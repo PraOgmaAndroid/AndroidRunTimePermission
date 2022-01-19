@@ -52,6 +52,11 @@ class BiometricPermission : AppCompatActivity() {
                                                    errString: CharSequence) {
 
                     biometricBinding.materialSwitch.isChecked = false
+                    Snackbar.make(
+                        biometricBinding.constraintLayout,
+                        "Authentication Error: $errString",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
 
                 }
 
