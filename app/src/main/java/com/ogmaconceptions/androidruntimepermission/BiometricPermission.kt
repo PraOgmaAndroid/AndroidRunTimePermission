@@ -7,27 +7,30 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricPrompt
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.ogmaconceptions.androidruntimepermission.databinding.ActivityBiometricPermissionBinding
 import java.util.concurrent.Executor
 
 
 class BiometricPermission : AppCompatActivity() {
+    private val TAG = BiometricPermission::class.java.simpleName
     private lateinit var biometricBinding: ActivityBiometricPermissionBinding
     // create a CancellationSignal variable and assign a value null to it
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private val promptInfo = BiometricPrompt.PromptInfo.Builder()
-                            .setTitle("Biometric login for my app")
-                            .setSubtitle("Log in using your biometric credential")
-                            .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL)
-                            .setConfirmationRequired(true)
+        .setTitle("Biometric login for my app")
+        .setSubtitle("Log in using your biometric credential")
+        .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG or DEVICE_CREDENTIAL)
                             .build()
     private val PREF_NAME = "biometric-check"
     private lateinit var sharedPref: SharedPreferences
@@ -51,14 +54,13 @@ class BiometricPermission : AppCompatActivity() {
             object : BiometricPrompt.AuthenticationCallback() {
                 override fun onAuthenticationError(errorCode: Int,
                                                    errString: CharSequence) {
+                    Log.e(TAG, "$getSharedValue")
+                    if (getSharedValue == 1) {
+                        showAlertDialog()
+                    } else {
+                        biometricBinding.materialSwitch.isChecked = false
+                    }
 
-                    if(getSharedValue == 0) biometricBinding.materialSwitch.isChecked = false
-                    Snackbar.make(
-                        biometricBinding.constraintLayout,
-                        "Authentication error: $errString",
-                        Snackbar.LENGTH_INDEFINITE
-                    ).setAction("Dismiss") {}
-                        .show()
                 }
 
                 override fun onAuthenticationSucceeded(
@@ -71,20 +73,20 @@ class BiometricPermission : AppCompatActivity() {
                     Snackbar.make(
                         biometricBinding.constraintLayout,
                         "Authentication succeeded!",
-                        Snackbar.LENGTH_INDEFINITE
-                    ).setAction("Dismiss") {}
-                        .show()
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
 
                 override fun onAuthenticationFailed() {
                     super.onAuthenticationFailed()
-                    if(getSharedValue == 0) biometricBinding.materialSwitch.isChecked = false
+                    if (getSharedValue == 0) {
+                        biometricBinding.materialSwitch.isChecked = false
+                    }
                     Snackbar.make(
                         biometricBinding.constraintLayout,
                         "Authentication failed",
-                        Snackbar.LENGTH_INDEFINITE
-                    ).setAction("Dismiss") {}
-                        .show()
+                        Snackbar.LENGTH_SHORT
+                    ).show()
                 }
             })
 
@@ -107,13 +109,27 @@ class BiometricPermission : AppCompatActivity() {
                 val editor = sharedPref.edit()
                 editor.clear()
                 editor.apply()
-            }else{
+            } else {
+                Log.e(TAG, "CHECKCHANGE $getSharedValue")
                 biometricPrompt.authenticate(promptInfo)
             }
-
         }
 
 
+    }
+
+    private fun showAlertDialog() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(resources.getString(R.string.titleUnlock))
+            .setMessage(resources.getString(R.string.messageUnlock))
+            .setNeutralButton(resources.getString(R.string.cancel)) { dialog, which ->
+                finish()
+            }
+
+            .setPositiveButton(resources.getString(R.string.unlock)) { dialog, which ->
+                biometricPrompt.authenticate(promptInfo)
+                dialog.dismiss()
+            }.setCancelable(false).show()
     }
 
 

@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">AndroidRunTimePermission</string>
-    <string name="permission_required">Please provide all the permissions to proceed.</string>
+    <string name="permission_required">Please provide permission for camera.</string>
+    <string name="permission_required_location">Please provide permission for location.</string>
     <string name="ok">OK</string>
     <string name="permission_granted">Permission is granted.</string>
     <string name="accept">ACCEPT</string>
     <string name="cancel">DENY</string>
     <string name="title">Need Permissions</string>
-    <string name="message">This app need camera permissions</string>
+    <string name="message">This app needs all permissions</string>
+    <string name="unlock">UNLOCK</string>
+    <string name="titleUnlock">Unlock</string>
+    <string name="messageUnlock">You have to unlock to use the application</string>
 </resources>

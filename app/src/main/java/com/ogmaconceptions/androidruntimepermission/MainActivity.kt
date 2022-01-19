@@ -3,11 +3,11 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -89,26 +89,37 @@ class MainActivity : AppCompatActivity() {
                         view,
                         getString(R.string.permission_granted),
                         Snackbar.LENGTH_INDEFINITE,
-                        null
-                    ) {}
-                }else{
-                    if(shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)
-                        || shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)){
-                        showSnackbar(
-                            view,
-                            getString(R.string.permission_required),
-                            Snackbar.LENGTH_INDEFINITE,
-                            getString(R.string.ok)
-                        ) {
-                            requestPermission()
+                        action = null
+                    )
+                }else {
+                    when {
+                        shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
+                            showSnackbar(
+                                view,
+                                getString(R.string.permission_required_location),
+                                Snackbar.LENGTH_INDEFINITE,
+                                getString(R.string.ok)
+                            ) {
+                                requestPermission()
+                            }
                         }
-                    }else{
-                        openSystemSettings()
+                        shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
+                            showSnackbar(
+                                view,
+                                getString(R.string.permission_required),
+                                Snackbar.LENGTH_INDEFINITE,
+                                getString(R.string.ok)
+                            ) {
+                                requestPermission()
+                            }
+                        }
+                        else -> {
+                            openSystemSettings()
+                        }
                     }
                 }
 
             }
-            else -> openSystemSettings()
         }
     }
 
@@ -132,19 +143,19 @@ class MainActivity : AppCompatActivity() {
         view: View,
         msg: String,
         length: Int,
-        actionMessage: CharSequence?,
-        action: (View) -> Unit
+        actionMessage: String = "",
+        action: ((View) -> Unit)?
     ) {
         val snackbar = Snackbar.make(view, msg, length)
         if (actionMessage != null) {
             snackbar.setAction(actionMessage) {
-                action(view)
+                if (action != null) {
+                    action(view)
+                }
             }.show()
         } else {
             snackbar.show()
         }
-
-
     }
 
 }
