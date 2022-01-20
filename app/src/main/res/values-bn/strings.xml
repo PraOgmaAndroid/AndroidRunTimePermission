@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome">স্বাগত,</string>
+    <string name="email">ইমেইল</string>
+    <string name="password">পাসওয়ার্ড</string>
+    <string name="emailBlankValidation">ইমেইল ফাঁকা রাখা উচিত নয়</string>
+    <string name="emailFormatValidation">অবৈধ ইমেল বিন্যাস</string>
+    <string name="passwordBlankValidation">পাসওয়ার্ড খালি রাখা উচিত নয়</string>
+    <string name="passwordFormatValidation">পাসওয়ার্ড 8 অক্ষরের কম হওয়া উচিত নয়</string>
+    <string name="loginSucess">সফলভাবে লগ ইন</string>
+    <string name="btnSignIn">সাইন ইন করুন</string>
+</resources>

@@ -1,14 +1,24 @@
 <resources>
-    <string name="app_name">AndroidRunTimePermission</string>
-    <string name="permission_required">Please provide permission for camera.</string>
-    <string name="permission_required_location">Please provide permission for location.</string>
-    <string name="ok">OK</string>
-    <string name="permission_granted">Permission is granted.</string>
-    <string name="accept">ACCEPT</string>
-    <string name="cancel">DENY</string>
-    <string name="title">Need Permissions</string>
-    <string name="message">This app needs all permissions</string>
-    <string name="unlock">UNLOCK</string>
-    <string name="titleUnlock">Unlock</string>
-    <string name="messageUnlock">You have to unlock to use the application</string>
+    <string name="app_name" translatable="false">AndroidRunTimePermission</string>
+    <string name="permission_required" translatable="false">Please provide permission for camera.</string>
+    <string name="permission_required_location" translatable="false">Please provide permission for location.</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="permission_granted" translatable="false">Permission is granted.</string>
+    <string name="accept" translatable="false">ACCEPT</string>
+    <string name="cancel" translatable="false">DENY</string>
+    <string name="title" translatable="false">Need Permissions</string>
+    <string name="message" translatable="false">This app needs all permissions</string>
+    <string name="unlock" translatable="false">UNLOCK</string>
+    <string name="titleUnlock" translatable="false">Unlock</string>
+    <string name="messageUnlock" translatable="false">You have to unlock to use the application</string>
+    <string name="welcome">Welcome,</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="emailBlankValidation">Email should not be left blank</string>
+    <string name="emailFormatValidation">Invalid Email format</string>
+    <string name="passwordBlankValidation">Password should not be left blank</string>
+    <string name="passwordFormatValidation">Password should not be less than 8 characters</string>
+    <string name="loginSucess">Successfully Logged in</string>
+    <string name="btnSignIn">Sign In</string>
+    <string name="Bengali" translatable="false">বাংলা</string>
 </resources>
