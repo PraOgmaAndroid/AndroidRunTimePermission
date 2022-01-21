@@ -29,7 +29,7 @@ class BiometricPermission : AppCompatActivity() {
         .setTitle("Biometric login for my app")
         .setSubtitle("Log in using your biometric credential")
         .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG or DEVICE_CREDENTIAL)
-                            .build()
+        .build()
     private val PREF_NAME = "biometric-check"
     private lateinit var sharedPref: SharedPreferences
 
@@ -96,6 +96,21 @@ class BiometricPermission : AppCompatActivity() {
             }
         }
 
+        biometricBinding.topAppBar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.forward -> {
+                    Intent(this, LoginActivity::class.java).also { intent ->
+                        startActivity(intent)
+
+                    }
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
+
     }
 
 
@@ -134,5 +149,5 @@ class BiometricPermission : AppCompatActivity() {
             return true
         }
     }
-    
+
 }

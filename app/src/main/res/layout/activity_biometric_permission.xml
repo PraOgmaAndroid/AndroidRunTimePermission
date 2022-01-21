@@ -18,6 +18,7 @@
             app:title="Biometric Authentication"
             app:navigationIcon="@drawable/ic_arrow_back"
             app:titleCentered="true"
+            app:menu="@menu/topbar_menu"
             app:navigationIconTint="?attr/colorOnPrimary"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             app:layout_collapseMode="pin"

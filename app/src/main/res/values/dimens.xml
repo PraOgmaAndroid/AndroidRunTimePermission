@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- For margin. -->
+    <dimen name="zero">0dp</dimen>
+    <dimen name="margin_2">2dp</dimen>
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="neg_margin_4">-4dp</dimen>
+    <dimen name="margin_6">6dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_12">12dp</dimen>
+    <dimen name="margin_14">14dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_18">18dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_22">22dp</dimen>
+    <dimen name="margin_24">24dp</dimen>
+    <dimen name="margin_28">28dp</dimen>
+    <dimen name="margin_30">30dp</dimen>
+    <dimen name="margin_32">32dp</dimen>
+    <dimen name="margin_34">34dp</dimen>
+    <dimen name="margin_36">36dp</dimen>
+    <dimen name="margin_40">40dp</dimen>
+    <dimen name="margin_42">42dp</dimen>
+    <dimen name="margin_44">44dp</dimen>
+    <dimen name="margin_48">48dp</dimen>
+    <dimen name="margin_56">56dp</dimen>
+    <dimen name="margin_72">72dp</dimen>
+    <dimen name="margin_80">80dp</dimen>
+    <dimen name="margin_96">96dp</dimen>
+
+    <!-- For text size. -->
+    <dimen name="sp_12">12sp</dimen>
+    <dimen name="sp_13">13sp</dimen>
+    <dimen name="sp_14">14sp</dimen>
+    <dimen name="sp_15">15sp</dimen>
+    <dimen name="sp_16">16sp</dimen>
+    <dimen name="sp_17">17sp</dimen>
+    <dimen name="sp_18">18sp</dimen>
+    <dimen name="sp_19">19sp</dimen>
+    <dimen name="sp_20">20sp</dimen>
+    <dimen name="sp_22">22sp</dimen>
+    <dimen name="sp_24">24sp</dimen>
+    <dimen name="sp_26">26sp</dimen>
+    <dimen name="sp_30">30sp</dimen>
+    <dimen name="sp_36">36sp</dimen>
+    <dimen name="sp_42">42sp</dimen>
+    <dimen name="sp_48">48sp</dimen>
+
+    <!-- For otp box. -->
+    <dimen name="otpBoxWidth">44dp</dimen>
+    <dimen name="otpBoxHeight">48dp</dimen>
+
+    <!-- For button. -->
+    <dimen name="buttonWidth_1">156dp</dimen>
+    <dimen name="buttonWidth_2">96dp</dimen>
+    <dimen name="buttonHeight_1">56dp</dimen>
+    <dimen name="buttonHeight_2">68dp</dimen>
+    <dimen name="buttonHeight_3">52dp</dimen>
+
+    <!-- For card. -->
+    <dimen name="cardViewHeight">216dp</dimen>
+
+    <!-- For shape. -->
+    <dimen name="shapeWidth">1dp</dimen>
+    <dimen name="shapeDashWidth">4dp</dimen>
+    <dimen name="shapeDashGap">2dp</dimen>
+
+    <!-- For layout height. -->
+    <dimen name="layoutHeight">272dp</dimen>
+
+    <!-- List item image height. -->
+    <dimen name="imageHeight_1">84dp</dimen>
+    <dimen name="imageHeight_2">96dp</dimen>
+
+    <!-- For stroke width. -->
+    <dimen name="strokeWidth">1dp</dimen>
+
+    <!-- For line spacing. -->
+    <dimen name="lineSpacing">2dp</dimen>
+
+    <!-- For fab icon. -->
+    <dimen name="fabIconSize">16dp</dimen>
+
+    <!-- For grid item height. -->
+    <dimen name="gridItemHeight">268dp</dimen>
+
+    <!-- For youtube player height. -->
+    <dimen name="youTubePlayerHeight">240dp</dimen>
+
+    <!-- For circular indicator. -->
+    <dimen name="indicatorHeight">56dp</dimen>
+    <dimen name="trackThickness">16dp</dimen>
+</resources>
