@@ -2,7 +2,6 @@ package com.ogmaconceptions.androidruntimepermission
 
 import android.app.KeyguardManager
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
@@ -82,9 +81,7 @@ class BiometricPermission : AppCompatActivity() {
 
 
         biometricBinding.topAppBar.setNavigationOnClickListener {
-            Intent(this, MainActivity::class.java).also { intent ->
-                startActivity(intent)
-            }
+            finish()
         }
 
         biometricBinding.materialSwitch.setOnCheckedChangeListener { compoundButton, b ->
