@@ -4,12 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputLayout
 import com.ogmaconceptions.androidruntimepermission.databinding.ActivityLoginBinding
 
 
@@ -21,27 +19,31 @@ class LoginActivity : AppCompatActivity() {
     private val PREF_NAME = "MultiLingual"
     private val nameArray = arrayOf("Prasenjit", "Avishek", "Sajjad", "Jishnu")
     private lateinit var sharedPref: SharedPreferences
+    private var passwordErrorMessageId: Int? = null
+    private var emailErrorMessageId: Int? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        loginBinding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(loginBinding.root)
+        sharedPref = this.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        if (sharedPref.getString(PREF_NAME, "en") == "en") {
+            Locale.changeLanguage("en", this)
+            super.onCreate(savedInstanceState)
+            loginBinding = ActivityLoginBinding.inflate(layoutInflater)
+            setContentView(loginBinding.root)
+            loginBinding.btnEnglish.isChecked = true
+
+        } else {
+            Locale.changeLanguage("bn", this)
+            super.onCreate(savedInstanceState)
+            loginBinding = ActivityLoginBinding.inflate(layoutInflater)
+            setContentView(loginBinding.root)
+            loginBinding.btnBengali.isChecked = true
+        }
 
         loginBinding.topAppBar.setNavigationOnClickListener {
-            Intent(this, BiometricPermission::class.java).also {
-                startActivity(it)
-            }
+            finish()
         }
 
-        sharedPref = this.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-
-        if (sharedPref.getString(PREF_NAME, "en") == "en") {
-            loginBinding.btnEnglish.isChecked = true
-            Locale.changeLanguage("en", this)
-        } else {
-            loginBinding.btnBengali.isChecked = true
-            Locale.changeLanguage("bn", this)
-        }
 
         loginBinding.tvWelcomeName.text = nameArray.random()
 
@@ -67,78 +69,69 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        val email: String? = intent.getStringExtra("emailValue")
+        getIntentValue()
 
-        email?.let {
-            loginBinding.eTxtEmail.setText(it)
-        }
+        loginBinding.btnSignIn.setOnClickListener {
 
-        val password: String? = intent.getStringExtra("passwordValue")
+            emailValidate =
+                checkEmail(loginBinding.eTxtEmail.text.toString())
+            passwordValidate =
+                checkPassword(loginBinding.eTxtPassword.text.toString())
 
-        password?.let {
-            loginBinding.eTxtPassword.setText(it)
-        }
-
-        val emailValidation: Boolean? = intent.extras?.getBoolean("emailValidation")
-        emailValidation?.let {
-            emailValidate = it
-        }
-
-        val passwordValidation: Boolean? = intent.extras?.getBoolean("passwordValidation")
-        passwordValidation?.let {
-            passwordValidate = it
-        }
-
-        val personName: String? = intent.getStringExtra("welcomePerson")
-        personName?.let {
-            loginBinding.tvWelcomeName.text = it
-        }
-
-        loginBinding.eTxtEmail.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
+            loginBinding.layoutEmail.error = emailErrorMessageId?.let { it1 ->
+                resources.getString(
+                    it1
+                )
             }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                emailValidate =
-                    checkEmail(loginBinding.eTxtEmail.text.toString(), loginBinding.layoutEmail)
-            }
-
-        })
-
-        loginBinding.eTxtPassword.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                passwordValidate = checkPassword(
-                    loginBinding.eTxtPassword.text.toString(),
-                    loginBinding.layoutPassword
+            loginBinding.layoutPassword.error = passwordErrorMessageId?.let { it1 ->
+                resources.getString(
+                    it1
                 )
             }
 
-        })
-
-        loginBinding.btnSignIn.setOnClickListener {
             if (emailValidate && passwordValidate) {
                 Snackbar.make(
                     loginBinding.constraintLayout,
                     this.resources.getString(R.string.loginSucess),
-                    Snackbar.LENGTH_INDEFINITE
-                ).setAction("Dismiss") {}.show()
-            } else {
-                Snackbar.make(
-                    loginBinding.constraintLayout,
-                    "validation issue",
-                    Snackbar.LENGTH_INDEFINITE
-                ).setAction("Dismiss") {}.show()
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        }
+
+    }
+
+    private fun getIntentValue() {
+        with(intent) {
+            val email: String? = getStringExtra("emailValue")
+
+            email?.let {
+                loginBinding.eTxtEmail.setText(it)
+            }
+
+            val password: String? = getStringExtra("passwordValue")
+
+            password?.let {
+                loginBinding.eTxtPassword.setText(it)
+            }
+
+            emailErrorMessageId = getIntExtra("emailErrorMessage", 0)
+            try {
+                loginBinding.layoutEmail.error = resources.getString(emailErrorMessageId!!)
+            } catch (e: Exception) {
+                Log.e(TAG, "${e.localizedMessage} $emailErrorMessageId")
+            }
+
+
+            passwordErrorMessageId = getIntExtra("passwordErrorMessage", 0)
+            try {
+                loginBinding.layoutPassword.error = resources.getString(passwordErrorMessageId!!)
+            } catch (e: Exception) {
+                Log.e(TAG, "${e.localizedMessage} $passwordErrorMessageId")
+            }
+
+            val personName: String? = intent.getStringExtra("welcomePerson")
+            personName?.let {
+                loginBinding.tvWelcomeName.text = it
             }
         }
 
@@ -147,10 +140,11 @@ class LoginActivity : AppCompatActivity() {
     private fun reloadActivity() {
         Intent(this, LoginActivity::class.java).also {
             it.putExtra("emailValue", loginBinding.eTxtEmail.text.toString())
-            it.putExtra("emailValidation", emailValidate)
+            it.putExtra("emailErrorMessage", emailErrorMessageId)
             it.putExtra("passwordValue", loginBinding.eTxtPassword.text.toString())
-            it.putExtra("passwordValidation", passwordValidate)
+            it.putExtra("passwordErrorMessage", passwordErrorMessageId)
             it.putExtra("welcomePerson", loginBinding.tvWelcomeName.text)
+
             finish()
             overridePendingTransition(0, 0)
             startActivity(it)
@@ -158,35 +152,35 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkPassword(password: String, layoutPassword: TextInputLayout): Boolean {
+    private fun checkPassword(password: String): Boolean {
         return when {
             password.isEmpty() -> {
-                layoutPassword.error = this.resources.getString(R.string.passwordBlankValidation)
+                passwordErrorMessageId = R.string.passwordBlankValidation
                 false
             }
             password.length < 8 -> {
-                layoutPassword.error = this.resources.getString(R.string.passwordFormatValidation)
+                passwordErrorMessageId = R.string.passwordFormatValidation
                 false
             }
             else -> {
-                layoutPassword.error = null
+                passwordErrorMessageId = null
                 true
             }
         }
     }
 
-    private fun checkEmail(email: String, layoutEmail: TextInputLayout): Boolean {
+    private fun checkEmail(email: String): Boolean {
         return when {
             email.isEmpty() -> {
-                layoutEmail.error = this.resources.getString(R.string.emailBlankValidation)
+                emailErrorMessageId = R.string.emailBlankValidation
                 false
             }
             !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
-                layoutEmail.error = this.resources.getString(R.string.emailFormatValidation)
+                emailErrorMessageId = R.string.emailFormatValidation
                 false
             }
             else -> {
-                layoutEmail.error = null
+                emailErrorMessageId = null
                 true
             }
         }
