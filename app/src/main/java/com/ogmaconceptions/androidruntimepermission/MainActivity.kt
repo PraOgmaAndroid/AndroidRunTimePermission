@@ -37,8 +37,9 @@ class MainActivity : AppCompatActivity() {
         viewBinding.topAppBar.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.forward-> {
-                    Intent(this,BiometricPermission::class.java).also {
-                        startActivity(it)
+                    Intent(this, BiometricPermission::class.java).also { intent ->
+                        startActivity(intent)
+
                     }
                     true
                 }
