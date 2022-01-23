@@ -1,4 +1,4 @@
-package com.ogmaconceptions.androidruntimepermission
+package com.ogmaconceptions.androidruntimepermission.ui
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.ogmaconceptions.androidruntimepermission.R
 import com.ogmaconceptions.androidruntimepermission.databinding.ActivityMainBinding
 
 
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         viewBinding.topAppBar.setOnMenuItemClickListener {
             when(it.itemId){
-                R.id.forward-> {
+                R.id.forward -> {
                     Intent(this, BiometricPermission::class.java).also { intent ->
                         startActivity(intent)
 

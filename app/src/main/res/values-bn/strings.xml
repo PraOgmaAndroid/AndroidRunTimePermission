@@ -9,4 +9,5 @@
     <string name="passwordFormatValidation">পাসওয়ার্ড 8 অক্ষরের কম হওয়া উচিত নয়</string>
     <string name="loginSucess">সফলভাবে লগ ইন</string>
     <string name="btnSignIn">সাইন ইন করুন</string>
+    <string name="language">ভাষা</string>
 </resources>

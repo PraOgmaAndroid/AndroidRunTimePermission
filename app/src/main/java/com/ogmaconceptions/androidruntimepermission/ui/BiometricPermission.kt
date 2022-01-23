@@ -1,4 +1,4 @@
-package com.ogmaconceptions.androidruntimepermission
+package com.ogmaconceptions.androidruntimepermission.ui
 
 import android.app.KeyguardManager
 import android.content.Context
@@ -16,6 +16,7 @@ import androidx.biometric.BiometricPrompt
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
+import com.ogmaconceptions.androidruntimepermission.R
 import com.ogmaconceptions.androidruntimepermission.databinding.ActivityBiometricPermissionBinding
 import java.util.concurrent.Executor
 

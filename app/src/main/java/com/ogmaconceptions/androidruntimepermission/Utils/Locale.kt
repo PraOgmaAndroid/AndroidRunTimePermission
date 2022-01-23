@@ -1,4 +1,4 @@
-package com.ogmaconceptions.androidruntimepermission
+package com.ogmaconceptions.androidruntimepermission.Utils
 
 import android.content.Context
 import android.content.res.Configuration

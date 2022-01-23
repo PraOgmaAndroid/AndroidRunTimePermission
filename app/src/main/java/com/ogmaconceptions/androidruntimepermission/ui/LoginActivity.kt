@@ -1,13 +1,14 @@
-package com.ogmaconceptions.androidruntimepermission
+package com.ogmaconceptions.androidruntimepermission.ui
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.ogmaconceptions.androidruntimepermission.R
+import com.ogmaconceptions.androidruntimepermission.Utils.Locale
+import com.ogmaconceptions.androidruntimepermission.Utils.SharedStorage
 import com.ogmaconceptions.androidruntimepermission.databinding.ActivityLoginBinding
 
 
@@ -16,22 +17,21 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginBinding: ActivityLoginBinding
     private var emailValidate = false
     private var passwordValidate = false
-    private val PREF_NAME = "MultiLingual"
     private val nameArray = arrayOf("Prasenjit", "Avishek", "Sajjad", "Jishnu")
-    private lateinit var sharedPref: SharedPreferences
     private var passwordErrorMessageId: Int? = null
     private var emailErrorMessageId: Int? = null
+    private var instanceState: Bundle? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        sharedPref = this.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        if (sharedPref.getString(PREF_NAME, "en") == "en") {
+        instanceState = savedInstanceState
+        Log.e(TAG, "PRINT ${SharedStorage.getStoredLanguage(this)}")
+        if (SharedStorage.getStoredLanguage(this) == "en") {
             Locale.changeLanguage("en", this)
             super.onCreate(savedInstanceState)
             loginBinding = ActivityLoginBinding.inflate(layoutInflater)
             setContentView(loginBinding.root)
             loginBinding.btnEnglish.isChecked = true
-
         } else {
             Locale.changeLanguage("bn", this)
             super.onCreate(savedInstanceState)
@@ -44,7 +44,6 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
-
         loginBinding.tvWelcomeName.text = nameArray.random()
 
         loginBinding.btgLanguage.addOnButtonCheckedListener { group, checkedId, isChecked ->
@@ -52,16 +51,12 @@ class LoginActivity : AppCompatActivity() {
                 when (checkedId) {
                     R.id.btnEnglish -> {
                         Locale.changeLanguage("en", this)
-                        val editor = sharedPref.edit()
-                        editor.putString(PREF_NAME, "en")
-                        editor.apply()
+                        SharedStorage.storeLanguage(this, "en")
                         reloadActivity()
                     }
                     else -> {
                         Locale.changeLanguage("bn", this)
-                        val editor = sharedPref.edit()
-                        editor.putString(PREF_NAME, "bn")
-                        editor.apply()
+                        SharedStorage.storeLanguage(this, "bn")
                         reloadActivity()
                     }
                 }
@@ -95,9 +90,16 @@ class LoginActivity : AppCompatActivity() {
                     this.resources.getString(R.string.loginSucess),
                     Snackbar.LENGTH_SHORT
                 ).show()
+                Intent(this, SettingsActivity::class.java).also { startActivity(it) }
             }
         }
 
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.e(TAG, "PRINTRESTART ${SharedStorage.getStoredLanguage(this)}")
+        reloadActivity()
     }
 
     private fun getIntentValue() {
@@ -120,7 +122,6 @@ class LoginActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Log.e(TAG, "${e.localizedMessage} $emailErrorMessageId")
             }
-
 
             passwordErrorMessageId = getIntExtra("passwordErrorMessage", 0)
             try {
