@@ -139,13 +139,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun reloadActivity() {
-        Intent(this, LoginActivity::class.java).also {
-            it.putExtra("emailValue", loginBinding.eTxtEmail.text.toString())
-            it.putExtra("emailErrorMessage", emailErrorMessageId)
-            it.putExtra("passwordValue", loginBinding.eTxtPassword.text.toString())
-            it.putExtra("passwordErrorMessage", passwordErrorMessageId)
-            it.putExtra("welcomePerson", loginBinding.tvWelcomeName.text)
-
+        Intent(this, LoginActivity::class.java).apply {
+            putExtra("emailValue", loginBinding.eTxtEmail.text.toString())
+            putExtra("emailErrorMessage", emailErrorMessageId)
+            putExtra("passwordValue", loginBinding.eTxtPassword.text.toString())
+            putExtra("passwordErrorMessage", passwordErrorMessageId)
+            putExtra("welcomePerson", loginBinding.tvWelcomeName.text)
+        }.also {
             finish()
             overridePendingTransition(0, 0)
             startActivity(it)
