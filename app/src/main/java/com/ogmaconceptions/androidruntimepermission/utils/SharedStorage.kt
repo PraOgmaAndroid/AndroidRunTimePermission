@@ -1,4 +1,4 @@
-package com.ogmaconceptions.androidruntimepermission.Utils
+package com.ogmaconceptions.androidruntimepermission.utils
 
 import android.content.Context
 import android.content.SharedPreferences

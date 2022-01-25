@@ -4,15 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.ogmaconceptions.androidruntimepermission.R
-import com.ogmaconceptions.androidruntimepermission.Utils.Locale
-import com.ogmaconceptions.androidruntimepermission.Utils.SharedStorage
 import com.ogmaconceptions.androidruntimepermission.databinding.ActivityLoginBinding
+import com.ogmaconceptions.androidruntimepermission.utils.BaseActivity
+import com.ogmaconceptions.androidruntimepermission.utils.LanguageChange
+import com.ogmaconceptions.androidruntimepermission.utils.SharedStorage
 
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
     private val TAG = LoginActivity::class.java.simpleName
     private lateinit var loginBinding: ActivityLoginBinding
     private var emailValidate = false
@@ -24,19 +24,13 @@ class LoginActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        instanceState = savedInstanceState
-        Log.e(TAG, "PRINT ${SharedStorage.getStoredLanguage(this)}")
+        super.onCreate(savedInstanceState)
+        loginBinding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(loginBinding.root)
+
         if (SharedStorage.getStoredLanguage(this) == "en") {
-            Locale.changeLanguage("en", this)
-            super.onCreate(savedInstanceState)
-            loginBinding = ActivityLoginBinding.inflate(layoutInflater)
-            setContentView(loginBinding.root)
             loginBinding.btnEnglish.isChecked = true
         } else {
-            Locale.changeLanguage("bn", this)
-            super.onCreate(savedInstanceState)
-            loginBinding = ActivityLoginBinding.inflate(layoutInflater)
-            setContentView(loginBinding.root)
             loginBinding.btnBengali.isChecked = true
         }
 
@@ -50,12 +44,12 @@ class LoginActivity : AppCompatActivity() {
             if (isChecked) {
                 when (checkedId) {
                     R.id.btnEnglish -> {
-                        Locale.changeLanguage("en", this)
+                        LanguageChange.changeLanguage("en", this)
                         SharedStorage.storeLanguage(this, "en")
                         reloadActivity()
                     }
                     else -> {
-                        Locale.changeLanguage("bn", this)
+                        LanguageChange.changeLanguage("bn", this)
                         SharedStorage.storeLanguage(this, "bn")
                         reloadActivity()
                     }
@@ -96,12 +90,6 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    override fun onRestart() {
-        super.onRestart()
-        Log.e(TAG, "PRINTRESTART ${SharedStorage.getStoredLanguage(this)}")
-        reloadActivity()
-    }
-
     private fun getIntentValue() {
         with(intent) {
             val email: String? = getStringExtra("emailValue")
@@ -137,6 +125,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
+
 
     private fun reloadActivity() {
         Intent(this, LoginActivity::class.java).apply {
@@ -186,5 +175,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
 
 }
