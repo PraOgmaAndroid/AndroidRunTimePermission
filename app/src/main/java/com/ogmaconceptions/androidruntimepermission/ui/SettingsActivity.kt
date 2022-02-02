@@ -7,6 +7,7 @@ import com.ogmaconceptions.androidruntimepermission.R
 import com.ogmaconceptions.androidruntimepermission.databinding.ActivitySettingsBinding
 import com.ogmaconceptions.androidruntimepermission.utils.BaseActivity
 import com.ogmaconceptions.androidruntimepermission.utils.LanguageChange
+import com.ogmaconceptions.androidruntimepermission.utils.LoginData
 import com.ogmaconceptions.androidruntimepermission.utils.SharedStorage
 
 
@@ -19,6 +20,9 @@ class SettingsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(settingsBinding.root)
 
+        settingsBinding.tvEmail.text = LoginData.email
+
+        settingsBinding.tvPassword.text = LoginData.password
 
         settingsBinding.topAppBar.setNavigationOnClickListener {
             finish()

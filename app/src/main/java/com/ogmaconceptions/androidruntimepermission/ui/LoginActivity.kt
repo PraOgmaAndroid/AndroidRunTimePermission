@@ -9,6 +9,7 @@ import com.ogmaconceptions.androidruntimepermission.R
 import com.ogmaconceptions.androidruntimepermission.databinding.ActivityLoginBinding
 import com.ogmaconceptions.androidruntimepermission.utils.BaseActivity
 import com.ogmaconceptions.androidruntimepermission.utils.LanguageChange
+import com.ogmaconceptions.androidruntimepermission.utils.LoginData
 import com.ogmaconceptions.androidruntimepermission.utils.SharedStorage
 
 
@@ -79,6 +80,8 @@ class LoginActivity : BaseActivity() {
             }
 
             if (emailValidate && passwordValidate) {
+                LoginData.email = loginBinding.eTxtEmail.text.toString()
+                LoginData.password = loginBinding.eTxtPassword.text.toString()
                 Snackbar.make(
                     loginBinding.constraintLayout,
                     this.resources.getString(R.string.loginSucess),
