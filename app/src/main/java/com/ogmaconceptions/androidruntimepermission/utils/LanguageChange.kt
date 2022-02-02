@@ -6,8 +6,8 @@ import java.util.*
 
 object LanguageChange {
 
-    fun setLocale(c: Context): Context {
-        return changeLanguage(SharedStorage.getStoredLanguage(c)!!, c)
+    fun setLocale(c: Context, language: String): Context {
+        return changeLanguage(language, c)
     }
 
     fun changeLanguage(languageToChange: String, context: Context): Context {
@@ -15,6 +15,7 @@ object LanguageChange {
         Locale.setDefault(locale)
         val config = Configuration()
         config.setLocale(locale)
+        SharedStorage.storeLanguage(context, languageToChange)
         return context.createConfigurationContext(config)
     }
 

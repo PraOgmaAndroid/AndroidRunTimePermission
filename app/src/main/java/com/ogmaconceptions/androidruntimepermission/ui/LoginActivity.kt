@@ -44,19 +44,19 @@ class LoginActivity : BaseActivity() {
             if (isChecked) {
                 when (checkedId) {
                     R.id.btnEnglish -> {
-                        LanguageChange.changeLanguage("en", this)
-                        SharedStorage.storeLanguage(this, "en")
+                        LanguageChange.setLocale(this, "en")
                         reloadActivity()
                     }
                     else -> {
-                        LanguageChange.changeLanguage("bn", this)
-                        SharedStorage.storeLanguage(this, "bn")
+                        LanguageChange.setLocale(this, "bn")
                         reloadActivity()
                     }
                 }
 
             }
         }
+
+
 
         getIntentValue()
 
@@ -88,6 +88,11 @@ class LoginActivity : BaseActivity() {
             }
         }
 
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        reloadActivity()
     }
 
     private fun getIntentValue() {
