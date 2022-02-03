@@ -6,6 +6,7 @@ import com.ogmaconceptions.androidruntimepermission.R
 import com.ogmaconceptions.androidruntimepermission.databinding.ActivityFormBinding
 import com.ogmaconceptions.androidruntimepermission.utils.BaseActivity
 import com.ogmaconceptions.androidruntimepermission.utils.FieldConstants
+import com.ogmaconceptions.androidruntimepermission.utils.TextInputLayoutUtils
 import com.ogmaconceptions.androidruntimepermission.utils.Validation
 
 class FormActivity : BaseActivity() {
@@ -14,7 +15,10 @@ class FormActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         formBinding = ActivityFormBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
-        setContentView(formBinding.root)
+        val view = formBinding.root
+        setContentView(view)
+
+        TextInputLayoutUtils.resetTextInputErrorsOnTextChanged(view)
 
         formBinding.btnSave.setOnClickListener {
 
@@ -25,7 +29,6 @@ class FormActivity : BaseActivity() {
                     Snackbar.LENGTH_SHORT
                 ).show()
             }
-
 
         }
 
