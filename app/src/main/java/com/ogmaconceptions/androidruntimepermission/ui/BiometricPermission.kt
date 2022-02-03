@@ -101,7 +101,7 @@ class BiometricPermission : AppCompatActivity() {
         biometricBinding.topAppBar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.forward -> {
-                    Intent(this, LoginActivity::class.java).also { intent ->
+                    Intent(this, FormActivity::class.java).also { intent ->
                         startActivity(intent)
 
                     }

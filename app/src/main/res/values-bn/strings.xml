@@ -10,4 +10,17 @@
     <string name="loginSucess">সফলভাবে লগ ইন</string>
     <string name="btnSignIn">সাইন ইন করুন</string>
     <string name="language">ভাষা</string>
+    <string name="firstName">নামের প্রথম অংশ</string>
+    <string name="lasttName">নামের শেষাংশ</string>
+    <string name="phoneNo">ফোন নম্বর</string>
+    <string name="address">ঠিকানা</string>
+    <string name="btnSave">সংরক্ষণ</string>
+    <string name="instructions">নিম্নলিখিত ক্ষেত্র পূরণ করুন</string>
+    <string name="firstNameValidation">আপনার প্রথম নাম লিখুন</string>
+    <string name="lastNameValidation">আপনার নামের শেষ অংশ লিখুন</string>
+    <string name="phoneNumberEmptyValidation">অনুগ্রহ করে আপনার ফোন নাম্বারটি প্রদান করুন</string>
+    <string name="phoneNumberValidation">সঠিক ফোন নম্বর লিখুন</string>
+    <string name="addressValidation">আপনার ঠিকানা লিখুন</string>
+    <string name="confirmpassword">পাসওয়ার্ড নিশ্চিত করুন</string>
+    <string name="passwordMatchingValidation">পাসওয়ার্ড মেলেনি</string>
 </resources>

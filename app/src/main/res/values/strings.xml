@@ -12,14 +12,27 @@
     <string name="titleUnlock" translatable="false">Unlock</string>
     <string name="messageUnlock" translatable="false">You have to unlock to use the application</string>
     <string name="welcome">Welcome,</string>
+    <string name="instructions">Please fill the following fields</string>
     <string name="email">Email</string>
+    <string name="firstName">First Name</string>
+    <string name="lasttName">Last Name</string>
+    <string name="phoneNo">Phone Number</string>
+    <string name="address">Address</string>
     <string name="password">Password</string>
+    <string name="confirmpassword">Confirm Password</string>
+    <string name="firstNameValidation">Please enter your first name</string>
+    <string name="lastNameValidation">Please enter your last name</string>
+    <string name="phoneNumberEmptyValidation">Please enter your phone number</string>
+    <string name="phoneNumberValidation">Please enter correct phone number</string>
+    <string name="addressValidation">Please enter your address</string>
     <string name="emailBlankValidation">Email should not be left blank</string>
     <string name="emailFormatValidation">Invalid Email format</string>
     <string name="passwordBlankValidation">Password should not be left blank</string>
     <string name="passwordFormatValidation">Password should not be less than 8 characters</string>
+    <string name="passwordMatchingValidation">Password not matched</string>
     <string name="loginSucess">Successfully Logged in</string>
     <string name="btnSignIn">Sign In</string>
+    <string name="btnSave">Save</string>
     <string name="Bengali" translatable="false">বাংলা</string>
     <string name="language">Language</string>
 </resources>
