@@ -1,7 +1,7 @@
 package com.ogmaconceptions.androidruntimepermission.ui
 
 import android.os.Bundle
-import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import com.ogmaconceptions.androidruntimepermission.R
 import com.ogmaconceptions.androidruntimepermission.databinding.ActivityFormBinding
 import com.ogmaconceptions.androidruntimepermission.utils.BaseActivity
@@ -19,7 +19,11 @@ class FormActivity : BaseActivity() {
         formBinding.btnSave.setOnClickListener {
 
             if (checkValidation()) {
-                Toast.makeText(this, "All Good", Toast.LENGTH_SHORT).show()
+                Snackbar.make(
+                    formBinding.constraintLayout,
+                    this.resources.getString(R.string.loginSucess),
+                    Snackbar.LENGTH_SHORT
+                ).show()
             }
 
 

@@ -23,4 +23,5 @@
     <string name="addressValidation">আপনার ঠিকানা লিখুন</string>
     <string name="confirmpassword">পাসওয়ার্ড নিশ্চিত করুন</string>
     <string name="passwordMatchingValidation">পাসওয়ার্ড মেলেনি</string>
+    <string name="validationSucess">সমস্ত ফর্ম ক্ষেত্র যাচাই করা হয়</string>
 </resources>

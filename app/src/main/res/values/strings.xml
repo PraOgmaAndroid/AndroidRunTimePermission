@@ -31,6 +31,7 @@
     <string name="passwordFormatValidation">Password should not be less than 8 characters</string>
     <string name="passwordMatchingValidation">Password not matched</string>
     <string name="loginSucess">Successfully Logged in</string>
+    <string name="validationSucess">All form fields are validated</string>
     <string name="btnSignIn">Sign In</string>
     <string name="btnSave">Save</string>
     <string name="Bengali" translatable="false">বাংলা</string>
