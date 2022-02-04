@@ -86,24 +86,32 @@
                 android:maxLength="10" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutAddress"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_16"
-            android:hint="@string/address"
-            app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutPhone">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/eTxtAddress"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutAddress"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="@dimen/margin_16"
+                android:hint="@string/address"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/eTxtAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutEmail"
@@ -116,7 +124,7 @@
             app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutAddress">
+            app:layout_constraintTop_toBottomOf="@+id/llAddress">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/eTxtEmail"

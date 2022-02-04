@@ -16,14 +16,17 @@ object TextInputLayoutUtils {
                             if (!text.isNullOrEmpty()) {
                                 item.error = null
                                 for (j in 0 until view.childCount) {
-                                    if (view.getChildAt(j) is TextInputLayout) {
-                                        //Log.e("POSITION > J","$j")
-                                        val otherItems = view.getChildAt(j) as TextInputLayout
-                                        otherItems.error = null
+                                    if (view.getChildAt(j) is ViewGroup) {
+                                        if (view.getChildAt(j) is TextInputLayout) {
+                                            //Log.e("POSITION > J","$j")
+                                            val otherItems = view.getChildAt(j) as TextInputLayout
+                                            otherItems.error = null
+                                        } else {
+
+                                        }
                                     }
                                 }
                             }
-
                         }
                     }
                 } else {

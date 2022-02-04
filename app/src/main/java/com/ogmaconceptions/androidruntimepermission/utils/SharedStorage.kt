@@ -16,7 +16,7 @@ object SharedStorage {
 
     fun getStoredLanguage(context: Context): String? {
         sharedPref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        return sharedPref.getString(PREF_NAME, "en")
+        return sharedPref.getString(PREF_NAME, "bn")
     }
 
 }
