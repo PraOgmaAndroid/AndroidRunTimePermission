@@ -9,7 +9,6 @@ import com.ogmaconceptions.androidruntimepermission.R
 import com.ogmaconceptions.androidruntimepermission.databinding.ActivityLoginBinding
 import com.ogmaconceptions.androidruntimepermission.utils.BaseActivity
 import com.ogmaconceptions.androidruntimepermission.utils.LanguageChange
-import com.ogmaconceptions.androidruntimepermission.utils.LoginData
 import com.ogmaconceptions.androidruntimepermission.utils.SharedStorage
 
 
@@ -21,7 +20,6 @@ class LoginActivity : BaseActivity() {
     private val nameArray = arrayOf("Prasenjit", "Avishek", "Sajjad", "Jishnu")
     private var passwordErrorMessageId: Int? = null
     private var emailErrorMessageId: Int? = null
-    private var instanceState: Bundle? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +27,11 @@ class LoginActivity : BaseActivity() {
         loginBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(loginBinding.root)
 
-        if (SharedStorage.getStoredLanguage(this) == "en") {
+        Log.e("PRINT", "${storedLang.language}")
+
+        storedLang = SharedStorage(application)
+
+        if (storedLang.language == "en") {
             loginBinding.btnEnglish.isChecked = true
         } else {
             loginBinding.btnBengali.isChecked = true
@@ -80,8 +82,6 @@ class LoginActivity : BaseActivity() {
             }
 
             if (emailValidate && passwordValidate) {
-                LoginData.email = loginBinding.eTxtEmail.text.toString()
-                LoginData.password = loginBinding.eTxtPassword.text.toString()
                 Snackbar.make(
                     loginBinding.constraintLayout,
                     this.resources.getString(R.string.loginSucess),

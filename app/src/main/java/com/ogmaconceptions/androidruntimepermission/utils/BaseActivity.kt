@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 
 open class BaseActivity : AppCompatActivity() {
 
+    lateinit var storedLang: SharedStorage
+
     override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(SharedStorage.getStoredLanguage(newBase!!)
-            ?.let { LanguageChange.setLocale(newBase, it) })
+        storedLang = SharedStorage(newBase!!)
+        super.attachBaseContext(LanguageChange.setLocale(newBase, storedLang.language))
     }
 
 }

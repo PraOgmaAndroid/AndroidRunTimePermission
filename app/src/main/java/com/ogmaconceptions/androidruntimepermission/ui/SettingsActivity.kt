@@ -7,7 +7,6 @@ import com.ogmaconceptions.androidruntimepermission.R
 import com.ogmaconceptions.androidruntimepermission.databinding.ActivitySettingsBinding
 import com.ogmaconceptions.androidruntimepermission.utils.BaseActivity
 import com.ogmaconceptions.androidruntimepermission.utils.LanguageChange
-import com.ogmaconceptions.androidruntimepermission.utils.LoginData
 import com.ogmaconceptions.androidruntimepermission.utils.SharedStorage
 
 
@@ -20,15 +19,13 @@ class SettingsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(settingsBinding.root)
 
-        settingsBinding.tvEmail.text = LoginData.email
-
-        settingsBinding.tvPassword.text = LoginData.password
-
         settingsBinding.topAppBar.setNavigationOnClickListener {
             finish()
         }
 
-        if (SharedStorage.getStoredLanguage(this) == "en") {
+        storedLang = SharedStorage(application)
+
+        if (storedLang.language == "en") {
             settingsBinding.btnEnglish.isChecked = true
             settingsBinding.materialText.text = resources.getString(R.string.language)
         } else {
@@ -40,8 +37,7 @@ class SettingsActivity : BaseActivity() {
             if (isChecked) {
                 when (checkedId) {
                     R.id.btnEnglish -> {
-                        LanguageChange.changeLanguage("en", this)
-                        SharedStorage.storeLanguage(this, "en")
+                        LanguageChange.setLocale(this, "en")
                         Intent(this, SettingsActivity::class.java).also {
                             finish()
                             overridePendingTransition(0, 0)
@@ -50,8 +46,7 @@ class SettingsActivity : BaseActivity() {
                         }
                     }
                     else -> {
-                        LanguageChange.changeLanguage("bn", this)
-                        SharedStorage.storeLanguage(this, "bn")
+                        LanguageChange.setLocale(this, "bn")
                         Intent(this, SettingsActivity::class.java).also {
                             finish()
                             overridePendingTransition(0, 0)
