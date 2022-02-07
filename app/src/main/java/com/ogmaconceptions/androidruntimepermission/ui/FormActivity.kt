@@ -76,7 +76,7 @@ class FormActivity : BaseActivity() {
         val address = Validation.checkValidation(
             this,
             formBinding.eTxtAddress.text.toString(),
-            formBinding.layoutAddress,
+            formBinding.tilAddress,
             R.string.addressValidation,
         )
         if (!address.isValidated) flag = false
