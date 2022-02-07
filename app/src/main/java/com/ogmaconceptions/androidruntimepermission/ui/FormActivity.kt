@@ -1,6 +1,7 @@
 package com.ogmaconceptions.androidruntimepermission.ui
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import com.ogmaconceptions.androidruntimepermission.R
 import com.ogmaconceptions.androidruntimepermission.databinding.ActivityFormBinding
@@ -11,6 +12,7 @@ import com.ogmaconceptions.androidruntimepermission.utils.Validation
 
 class FormActivity : BaseActivity() {
     private lateinit var formBinding: ActivityFormBinding
+    private lateinit var textUtilsObj: TextInputLayoutUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
         formBinding = ActivityFormBinding.inflate(layoutInflater)
@@ -18,9 +20,14 @@ class FormActivity : BaseActivity() {
         val view = formBinding.root
         setContentView(view)
 
-        TextInputLayoutUtils.resetTextInputErrorsOnTextChanged(view)
+        textUtilsObj = TextInputLayoutUtils()
+
+        textUtilsObj.resetTextInputErrorsOnTextChanged(view)
+
+        textUtilsObj.parentView = view
 
         formBinding.btnSave.setOnClickListener {
+
 
             if (checkValidation()) {
                 Snackbar.make(
@@ -28,6 +35,10 @@ class FormActivity : BaseActivity() {
                     this.resources.getString(R.string.validationSucess),
                     Snackbar.LENGTH_SHORT
                 ).show()
+            } else {
+                textUtilsObj.errorFound = checkValidation()
+
+                Log.e("Print", "${textUtilsObj.errorFound}")
             }
 
         }
